@@ -1,6 +1,9 @@
 package balanceBike;
 
 import java.io.IOException;
+import java.util.logging.Logger;
+
+import lejos.utility.*;
 
 /**
  * A generic implementation of a Proportional <tt>&lt;P&gt;</tt>, Integral <tt>&lt;I&gt;</tt>, Derivative <tt>&lt;D&gt;</tt> 
