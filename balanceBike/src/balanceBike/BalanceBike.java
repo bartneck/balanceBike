@@ -2,7 +2,7 @@ package balanceBike;
 
 import lejos.utility
 
-// My comment
+// My comment 
 public class BalanceBike {
 
 	public static void main(String[] args) {
