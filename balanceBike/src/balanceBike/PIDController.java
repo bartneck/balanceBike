@@ -1,10 +1,7 @@
 package balanceBike;
 
 import java.io.IOException;
-import java.util.logging.Logger;
-
 import lejos.utility.*;
-
 
 /**
  * A generic implementation of a Proportional <tt>&lt;P&gt;</tt>, Integral <tt>&lt;I&gt;</tt>, Derivative <tt>&lt;D&gt;</tt> 
@@ -248,7 +245,7 @@ public class PIDController {
     private int rampThresold = 0;
     private double rampExtent = 1;
     private int msdelay;
-    private Logger dataLogger=null;
+    // private Logger dataLogger=null;
     private int cycleCount=0;
     private int PV;
     private int outputMV;
@@ -429,6 +426,7 @@ public class PIDController {
         outputMV=rampOut(outputMV);
 
         // log data if logger registered
+        /*
         if (this.dataLogger!=null&&cycleCount>2) {
             this.dataLogger.writeLog(setpoint);
             this.dataLogger.writeLog(outputMV);
@@ -447,6 +445,7 @@ public class PIDController {
                 dataLogger=null;
             }
         }
+        */
         
         // delay the difference of desired cycle time and actual cycle time
         if (this.msdelay>0) {
@@ -475,6 +474,7 @@ public class PIDController {
      * @see NXTDataLogger
      * @see #deregisterDataLogger
      */
+    /*
     public boolean registerDataLogger(Logger dataLogger){
         LogColumn[] logColumns = {
             new LogColumn("SP",LogColumn.DT_INTEGER),
@@ -494,16 +494,20 @@ public class PIDController {
         this.dataLogger=dataLogger;
         return true;
     }
+    */
 
     /** De-register the registered <code>NXTDataLogger</code>. 
      * @return The <code>NXTDataLogger</code> that was registered, <code>null</code> if no logger has been registered.
      * @see #registerDataLogger
      */
+    
+    /*
     public Logger deregisterDataLogger(){
         Logger tempDL=this.dataLogger;
         this.dataLogger=null;
         return tempDL;
     }
+    */
     
     private int rampOut(int ov){
         if (power==0 || rampThresold==0) return ov;
