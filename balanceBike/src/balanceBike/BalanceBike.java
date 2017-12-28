@@ -3,13 +3,13 @@ package balanceBike;
 import lejos.hardware.motor.EV3LargeRegulatedMotor;
 import lejos.hardware.motor.MindsensorsGlideWheelMRegulatedMotor;
 import lejos.hardware.port.MotorPort;
-import lejos.hardware.port.SensorPort;
+//import lejos.hardware.port.SensorPort;
 
 // My comment 
 public class BalanceBike {
 	private EV3LargeRegulatedMotor myMotor=new EV3LargeRegulatedMotor(MotorPort.A);
 	private PIDController myPID = new PIDController(0, 10);
-	private MindsensorsGlideWheelMRegulatedMotor myRotationSensor = new MindsensorsGlideWheelMRegulatedMotor(SensorPort.S1);
+	private MindsensorsGlideWheelMRegulatedMotor myRotationSensor = new MindsensorsGlideWheelMRegulatedMotor(MotorPort.B);
 	
 	public BalanceBike(){
 		// set PID controller Parameters
@@ -27,11 +27,36 @@ public class BalanceBike {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		BalanceBike myBike = new BalanceBike();
+		myBike.setup();
 		myBike.mainLoop();
 	}
 	
 	private void mainLoop() {
-		myMotor.setSpeed(myPID.doPID((int) myRotationSensor.getPosition()));
+		while (true) {
+			System.out.println("R:" + myRotationSensor.getTachoCount()+ "M:"+myPID.doPID((int) myRotationSensor.getPosition()));
+			int speed = myPID.doPID((int) myRotationSensor.getTachoCount());
+			// right = negative values, left = positive values
+			
+			// if leans right must rotate clockwise/forward
+			// if leans left must rotate counter clockwise/backwards
+			
+			if (speed <= 0) {
+				// clockwise
+				myMotor.forward();
+				myMotor.setSpeed(-speed);
+			}
+			else {
+				// counter clockwise
+				myMotor.backward();
+				myMotor.setSpeed(speed);
+			}
+			//myMotor.setSpeed(myPID.doPID((int) myRotationSensor.getTachoCount()));
+		}
+	}
+	
+	private void setup() {
+		// wait for pendulum to be in vertical position confirmed by user pressing button
+		
 	}
 
 }
